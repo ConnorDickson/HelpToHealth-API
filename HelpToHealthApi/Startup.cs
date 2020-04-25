@@ -8,6 +8,7 @@ using HelpToHealthApi.Data;
 using Microsoft.OpenApi.Models;
 using RestSharp;
 using RestSharp.Serializers.SystemTextJson;
+using AutoMapper;
 
 namespace HelpToHealthApi
 {
@@ -26,6 +27,8 @@ namespace HelpToHealthApi
             var googleApiKey = Configuration.GetValue<string>("GoogleAPIKey");
 
             services.AddControllers();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddSwaggerGen(c =>
             {

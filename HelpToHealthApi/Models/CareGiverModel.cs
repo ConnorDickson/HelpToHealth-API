@@ -1,12 +1,12 @@
-﻿using System;
+﻿using HelpToHealthApi.Entities;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HelpToHealthApi.Entities
+namespace HelpToHealthApi.Models
 {
-    public class CareGiverEntity
+    public class CareGiverModel
     {
         public int ID { get; set; }
 
@@ -26,6 +26,6 @@ namespace HelpToHealthApi.Entities
 
         public string TypesOfCare { get; set; }
 
-        public string Password { get; set; }
+        public string UserType { get; } = "Professional";
     }
 }

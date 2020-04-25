@@ -1,8 +1,11 @@
-﻿using HelpToHealthApi.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace HelpToHealthApi.Entities
+namespace HelpToHealthApi.Models
 {
-    public class CareVolunteerEntity
+    public class CareVolunteerModel
     {
         public int ID { get; set; }
 
@@ -26,10 +29,10 @@ namespace HelpToHealthApi.Entities
 
         public decimal Longitude { get; set; }
 
-        public string Password { get; set; }
-
         public int Age { get; set; }
 
         public string Country { get; set; }
+
+        public string UserType { get; set; } = "Volunteer";
     }
 }

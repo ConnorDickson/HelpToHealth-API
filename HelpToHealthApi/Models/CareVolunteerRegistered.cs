@@ -1,8 +1,12 @@
 ﻿using HelpToHealthApi.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace HelpToHealthApi.Entities
+namespace HelpToHealthApi.Models
 {
-    public class CareVolunteerEntity
+    public class CareVolunteerRegistered
     {
         public int ID { get; set; }
 
@@ -10,13 +14,13 @@ namespace HelpToHealthApi.Entities
 
         public string Address { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public int PhoneNumber { get; set; }
 
         public string Email { get; set; }
 
-        public string AvailabilityFrom { get; set; }
+        public int AvailabilityFrom { get; set; }
 
-        public string AvailabilityTo { get; set; }
+        public int AvailabilityTo { get; set; }
 
         public string WillingToDo { get; set; }
 
@@ -28,8 +32,8 @@ namespace HelpToHealthApi.Entities
 
         private string _password;
 
-        public string Password 
-        { 
+        public string Password
+        {
             get
             {
                 return _password.Base64Decode();
@@ -39,9 +43,5 @@ namespace HelpToHealthApi.Entities
                 _password = value.Base64Encode();
             }
         }
-
-        public int Age { get; set; }
-
-        public string Country { get; set; }
     }
 }

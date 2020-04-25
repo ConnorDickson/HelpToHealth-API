@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HelpToHealthApi.Entities
+namespace HelpToHealthApi.Models
 {
-    public class OrganisationEntity
+    public class OrganisationRegistered
     {
         public int ID { get; set; }
 
-        public string OrganisationType { get; set; }
+        public int OrganisationType { get; set; }
 
         public string Name { get; set; }
 
         public string Email { get; set; }
-
-        public ICollection<CareGiverEntity> CareGivers { get; set; }
     }
 }

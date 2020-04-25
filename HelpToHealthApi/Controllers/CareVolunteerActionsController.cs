@@ -25,14 +25,14 @@ namespace HelpToHealthApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CareVolunteerEntity>>> GetCareVolunteerEntity()
         {
-            return await _context.CareVolunteerEntity.ToListAsync();
+            return await _context.CareVolunteers.ToListAsync();
         }
 
         // GET: api/CareVolunteerActions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CareVolunteerEntity>> GetCareVolunteerEntity(int id)
         {
-            var careVolunteerEntity = await _context.CareVolunteerEntity.FindAsync(id);
+            var careVolunteerEntity = await _context.CareVolunteers.FindAsync(id);
 
             if (careVolunteerEntity == null)
             {
@@ -81,7 +81,7 @@ namespace HelpToHealthApi.Controllers
         [Route("registerCareVolunteer")]
         public async Task<ActionResult<CareVolunteerEntity>> RegisterCareVolunteer(CareVolunteerEntity careVolunteerEntity)
         {
-            _context.CareVolunteerEntity.Add(careVolunteerEntity);
+            _context.CareVolunteers.Add(careVolunteerEntity);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCareVolunteerEntity", new { id = careVolunteerEntity.ID }, careVolunteerEntity);
@@ -91,13 +91,13 @@ namespace HelpToHealthApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<CareVolunteerEntity>> DeleteCareVolunteerEntity(int id)
         {
-            var careVolunteerEntity = await _context.CareVolunteerEntity.FindAsync(id);
+            var careVolunteerEntity = await _context.CareVolunteers.FindAsync(id);
             if (careVolunteerEntity == null)
             {
                 return NotFound();
             }
 
-            _context.CareVolunteerEntity.Remove(careVolunteerEntity);
+            _context.CareVolunteers.Remove(careVolunteerEntity);
             await _context.SaveChangesAsync();
 
             return careVolunteerEntity;
@@ -105,7 +105,7 @@ namespace HelpToHealthApi.Controllers
 
         private bool CareVolunteerEntityExists(int id)
         {
-            return _context.CareVolunteerEntity.Any(e => e.ID == id);
+            return _context.CareVolunteers.Any(e => e.ID == id);
         }
     }
 }

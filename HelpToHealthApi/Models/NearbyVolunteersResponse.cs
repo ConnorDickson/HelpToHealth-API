@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace HelpToHealthApi.Models
 {
-    public class CareGiver
+    public class NearbyVolunteersResponse
     {
+        public string VolunteerName { get; set; }
     }
 }

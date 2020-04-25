@@ -25,14 +25,14 @@ namespace HelpToHealthApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrganisationEntity>>> GetOrganisationEntity()
         {
-            return await _context.OrganisationEntity.ToListAsync();
+            return await _context.Organisations.ToListAsync();
         }
 
         // GET: api/OrganisationActions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<OrganisationEntity>> GetOrganisationEntity(int id)
         {
-            var organisationEntity = await _context.OrganisationEntity.FindAsync(id);
+            var organisationEntity = await _context.Organisations.FindAsync(id);
 
             if (organisationEntity == null)
             {
@@ -81,7 +81,7 @@ namespace HelpToHealthApi.Controllers
         [Route("registerOrganisation")]
         public async Task<ActionResult<OrganisationEntity>> RegisterOrganisationAsync(OrganisationEntity organisationEntity)
         {
-            _context.OrganisationEntity.Add(organisationEntity);
+            _context.Organisations.Add(organisationEntity);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetOrganisationEntity", new { id = organisationEntity.ID }, organisationEntity);
@@ -91,13 +91,13 @@ namespace HelpToHealthApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<OrganisationEntity>> DeleteOrganisationEntity(int id)
         {
-            var organisationEntity = await _context.OrganisationEntity.FindAsync(id);
+            var organisationEntity = await _context.Organisations.FindAsync(id);
             if (organisationEntity == null)
             {
                 return NotFound();
             }
 
-            _context.OrganisationEntity.Remove(organisationEntity);
+            _context.Organisations.Remove(organisationEntity);
             await _context.SaveChangesAsync();
 
             return organisationEntity;
@@ -105,7 +105,7 @@ namespace HelpToHealthApi.Controllers
 
         private bool OrganisationEntityExists(int id)
         {
-            return _context.OrganisationEntity.Any(e => e.ID == id);
+            return _context.Organisations.Any(e => e.ID == id);
         }
     }
 }

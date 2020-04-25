@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using HelpToHealthApi.Entities;
 using Microsoft.EntityFrameworkCore;
-using HelpToHealthApi.Entities;
 
 namespace HelpToHealthApi.Data
 {
@@ -14,10 +10,11 @@ namespace HelpToHealthApi.Data
         {
         }
 
-        public DbSet<HelpToHealthApi.Entities.CareGiverEntity> CareGiverEntity { get; set; }
+        public DbSet<CareGiverEntity> CareGivers { get; set; }
 
-        public DbSet<HelpToHealthApi.Entities.CareVolunteerEntity> CareVolunteerEntity { get; set; }
+        public DbSet<CareVolunteerEntity> CareVolunteers { get; set; }
 
-        public DbSet<HelpToHealthApi.Entities.OrganisationEntity> OrganisationEntity { get; set; }
+        public DbSet<OrganisationEntity> Organisations { get; set; }
+
     }
 }

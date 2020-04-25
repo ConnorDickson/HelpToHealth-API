@@ -11,6 +11,7 @@ using RestSharp;
 using GoogleApi.Entities.Maps.DistanceMatrix.Response;
 using GoogleApi.Entities.Maps.DistanceMatrix.Request;
 using GoogleApi;
+using HelpToHealthApi.Models;
 
 namespace HelpToHealthApi.Controllers
 {
@@ -30,6 +31,11 @@ namespace HelpToHealthApi.Controllers
             GoogleAPIKey = googleAPIKey;
         }
 
+        private string NormaliseAddress(string address)
+        {
+            return address.Replace(",", "").Replace(" ", "");
+        }
+
         // GET: api/CareGiverActions
         [HttpGet]
         [Route("nearLocation")]
@@ -40,21 +46,43 @@ namespace HelpToHealthApi.Controllers
             var volunteerAddresses = string.Join('|', volunteers.Select(x => x.Address).ToArray());
 
             //Google API search near location
-            var r = new DistanceMatrixRequest
+            var request = new DistanceMatrixRequest
             {
                 OriginsRaw = volunteerAddresses,
                 DestinationsRaw = clientLocation,
                 Units = GoogleApi.Entities.Maps.Common.Enums.Units.Imperial,
                 Key = GoogleAPIKey
             };
-            var re = GoogleMaps.DistanceMatrix.Query(r);
+            var response = GoogleMaps.DistanceMatrix.Query(request);
 
-            foreach (var volunteer in volunteers)
+            var nearbyVolunteers = new List<NearbyVolunteersResponse>();
+
+            for (int i = 0; i < response.OriginAddresses.Count(); i++)
             {
+                try
+                {
+                    var originAddress = response.OriginAddresses.ElementAt(i);
+                    var row = response.Rows.ElementAt(i);
+                    var duration = row.Elements.First().Duration;
+                    var distance = row.Elements.First().Distance;
+                    var volunteer = volunteers.FirstOrDefault(x => NormaliseAddress(originAddress).Contains(NormaliseAddress(x.Address)));
 
+                    nearbyVolunteers.Add(new NearbyVolunteersResponse
+                    {
+                        CareVolunteer = volunteer,
+                        Distance = distance,
+                        Duration = duration
+                    });
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e);
+                }
             }
-            
-            return Ok(re);
+
+            var returnValue = nearbyVolunteers.OrderBy(x => x.Distance.Value);
+
+            return Ok(returnValue);
         }
 
         // GET: api/CareGiverActions

@@ -32,7 +32,7 @@ namespace HelpToHealthApi
                 {
                     var context = services.GetRequiredService<HelpToHealthApiContext>();
                     //context.Database.EnsureCreated();
-                    DbInitializer.Initialize(context);
+                    //DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {

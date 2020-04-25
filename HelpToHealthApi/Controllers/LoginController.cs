@@ -28,14 +28,14 @@ namespace HelpToHealthApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginRequest loginDetails)
         {
-            var careGiver = _context.CareGivers.FirstOrDefault(x => x.Name.Equals(loginDetails.Username) && x.Password.Equals(loginDetails.Password));
+            var careGiver = _context.CareGivers.FirstOrDefault(x => x.Email.Equals(loginDetails.Email) && x.Password.Equals(loginDetails.Password));
 
             if (careGiver != null)
             {
                 return Ok(Mapper.Map<CareGiverModel>(careGiver));
             }
 
-            var volunteer = _context.CareVolunteers.FirstOrDefault(x => x.Name.Equals(loginDetails.Username) && x.Password.Equals(loginDetails.Password));
+            var volunteer = _context.CareVolunteers.FirstOrDefault(x => x.Email.Equals(loginDetails.Email) && x.Password.Equals(loginDetails.Password));
 
             if (volunteer != null)
             {
